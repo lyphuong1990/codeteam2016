@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use App\Models\DoanhNghiep;
 use DB;
 
 use App\Http\Requests;
@@ -46,7 +47,7 @@ class DoanhNghiepController extends Controller
             'ten_dn' => 'required',
             'dia_chi' => 'required',
             'dt_dn' => 'required',
-            'email' => 'required|email,email',
+            'email' => 'required|email|max:255',
             'n_daidien' => 'required',
             'so_tien' => 'required',
             'loai_goi' => 'required',
@@ -58,7 +59,7 @@ class DoanhNghiepController extends Controller
 
         $input = $request->all();
         DoanhNghiep::create($input);
-        return redirect()->route('DoanhNghiep.index')
+        return redirect()->route('doanhnghiep.index')
                         ->with('success','DN Created successfully');
     }
 
@@ -70,8 +71,8 @@ class DoanhNghiepController extends Controller
      */
     public function show($id)
     {
-        $user = User::find($id);
-        return view('DoanhNghiep.show');
+        $dn = DoanhNghiep::find($id);
+        return view('doanhnghiep.show',compact('dn'));
     }
 
     /**
@@ -101,7 +102,7 @@ class DoanhNghiepController extends Controller
             'ten_dn' => 'required',
             'dia_chi' => 'required',
             'dt_dn' => 'required',
-            'email' => 'required|email,email',
+            'email' => 'required|email|max:255',
             'n_daidien' => 'required',
             'so_tien' => 'required',
             'loai_goi' => 'required',

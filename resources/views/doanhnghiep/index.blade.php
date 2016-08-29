@@ -7,7 +7,7 @@
 	            <h2>Tạo hồ sơ</h2>
 	        </div>
 	        <div class="pull-right">
-	            <a class="btn btn-success" href="{{ route('words.create') }}"> Create New User</a>
+	            <a class="btn btn-success" href="{{ route('doanhnghiep.create') }}"> Create New User</a>
 	        </div>
 	    </div>
 	</div>
@@ -30,22 +30,26 @@
 			<th>Người tạo</th>
 			<th width="280px">Action</th>
 		</tr>
-	@foreach ($data as $key => $user)
+	@foreach ($data as $key => $dn)
 	<tr>
 		<td>{{ ++$i }}</td>
-		<td>{{ $user->name }}</td>
-		<td>{{ $user->email }}</td>
+		<td>{{ $dn->mst }}</td>
+		<td>{{ $dn->ten_dn }}</td>
+		<td>{{ $dn->dia_chi }}</td>
+		<td>{{ $dn->dt_dn }}</td>
+		<td>{{ $dn->email }}</td>
+		<td>{{ $dn->n_daidien }}</td>
+		<td>{{ $dn->so_tien }}</td>
+		<td>{{ $dn->loai_goi }}</td>
+		<td>{{ $dn->so_nam }}</td>
+		<td>{{ $dn->user_id }}</td>
+		<td>{{ $dn->user_name }}</td>
+		<td>{{ $dn->trang_thai }}</td>
+
 		<td>
-			@if(!empty($user->roles))
-				@foreach($user->roles as $v)
-					<label class="label label-success">{{ $v->display_name }}</label>
-				@endforeach
-			@endif
-		</td>
-		<td>
-			<a class="btn btn-info" href="{{ route('words.show',$user->id) }}">Show</a>
-			<a class="btn btn-primary" href="{{ route('words.edit',$user->id) }}">Edit</a>
-			{!! Form::open(['method' => 'DELETE','route' => ['words.destroy', $user->id],'style'=>'display:inline']) !!}
+			<a class="btn btn-info" href="{{ route('doanhnghiep.show',$dn->id) }}">Show</a>
+			<a class="btn btn-primary" href="{{ route('doanhnghiep.edit',$dn->id) }}">Edit</a>
+			{!! Form::open(['method' => 'DELETE','route' => ['doanhnghiep.destroy', $dn->id],'style'=>'display:inline']) !!}
             {!! Form::submit('Delete', ['class' => 'btn btn-danger']) !!}
         	{!! Form::close() !!}
 		</td>

@@ -25,6 +25,8 @@ Route::group(['middleware' => ['auth']], function() {
 	Route::get('my-post', 'PostController@myPost');
 	Route::resource('users','UserController');
 	Route::resource('testphpw','CloneTmpWController');
+	Route::resource('doanhnghiep','DoanhNghiepController');
+
 	// For Role
 	Route::get('roles',['as'=>'roles.index','uses'=>'RoleController@index','middleware' => ['permission:role-list|role-create|role-edit|role-delete']]);
 	Route::get('roles/create',['as'=>'roles.create','uses'=>'RoleController@create','middleware' => ['permission:role-create']]);
