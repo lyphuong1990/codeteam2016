@@ -49,6 +49,7 @@
 		<td>
 			<a class="btn btn-info" href="{{ route('doanhnghiep.show',$dn->id) }}">Show</a>
 			<a class="btn btn-primary" href="{{ route('doanhnghiep.edit',$dn->id) }}">Edit</a>
+			<a class="btn btn-primary" href="{{ route('testphpw.index',$dn->id) }}">docx</a>
 			{!! Form::open(['method' => 'DELETE','route' => ['doanhnghiep.destroy', $dn->id],'style'=>'display:inline']) !!}
             {!! Form::submit('Delete', ['class' => 'btn btn-danger']) !!}
         	{!! Form::close() !!}
