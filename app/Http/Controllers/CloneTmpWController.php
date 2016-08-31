@@ -9,9 +9,8 @@ use App\Http\Requests;
 
 class CloneTmpWController extends Controller
 {
-	public function index($id)
+	public function getdocx($id)
 	{
-
 		$dn = DoanhNghiep::find($id);
 
     //// Creating the new document...
@@ -19,7 +18,7 @@ class CloneTmpWController extends Controller
 		//include(public_path(). '\storage\Sample_Header.php');
 	
 		 try {
-		 	$templateProcessor = new \PhpOffice\PhpWord\TemplateProcessor(base_path(). '\common\FPT_GH3_0305210499_HD_PHUONGLV.docx');
+		 	$templateProcessor = new \PhpOffice\PhpWord\templateProcessor(base_path(). '\common\FPT_GH3_0305210499_HD_PHUONGLV.docx');
 				// Variables on different parts of document
 				$templateProcessor->setValue('mst', $dn->mst);            // On section/content
 				$templateProcessor->setValue('ten_dn', $dn->ten_dn);

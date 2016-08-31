@@ -129,4 +129,30 @@ class DoanhNghiepController extends Controller
         DoanhNghiep::find($id)->delete();
         return redirect()->route('doanhnghiep.index')
                         ->with('success','DN deleted successfully');
-    }}
+    }
+
+    public function importExport()
+    {
+        return view('importExport');
+    }
+    
+    public function importExcel()
+        {
+            if(Input::hasFile('import_file')){
+                $path = Input::file('import_file')->getRealPath();
+                $data = Excel::load($path, function($reader) {
+                })->get();
+                if(!empty($data) && $data->count()){
+                    foreach ($data as $key => $value) {
+                        $insert[] = ['title' => $value->title, 'description' => $value->description];
+                    }
+                    // if(!empty($insert)){
+                    //     DB::table('items')->insert($insert);
+                    //     dd('Insert Record successfully.');
+                    // }
+                }
+            }
+            return back();
+        }
+
+}

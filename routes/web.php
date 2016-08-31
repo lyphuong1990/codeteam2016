@@ -24,8 +24,14 @@ Route::group(['middleware' => ['auth']], function() {
 	Route::get('/home', 'HomeController@index');
 	Route::get('my-post', 'PostController@myPost');
 	Route::resource('users','UserController');
-	Route::resource('testphpw','CloneTmpWController');
+	//Route::get('testphpw/{id}','CloneTmpWController@getdocx');
+	Route::get('testphpw/{id}', ['as' => 'testphpw.getdocx', 'uses' => 'CloneTmpWController@getdocx']);
+
 	Route::resource('doanhnghiep','DoanhNghiepController');
+	Route::get('importExport', 'DoanhNghiepController@importExport');
+	Route::post('importExcel', 'DoanhNghiepController@importExcel');
+
+
 
 	// For Role
 	Route::get('roles',['as'=>'roles.index','uses'=>'RoleController@index','middleware' => ['permission:role-list|role-create|role-edit|role-delete']]);
