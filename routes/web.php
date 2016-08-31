@@ -29,7 +29,7 @@ Route::group(['middleware' => ['auth']], function() {
 
 	Route::resource('doanhnghiep','DoanhNghiepController');
 	Route::get('importExport', 'DoanhNghiepController@importExport');
-	Route::post('importExcel', 'DoanhNghiepController@importExcel');
+	Route::post('/importExcel', 'DoanhNghiepController@importExcel');
 
 
 

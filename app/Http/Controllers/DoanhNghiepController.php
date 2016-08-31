@@ -7,6 +7,8 @@ use App\Http\Controllers\Controller;
 use App\Models\User;
 use App\Models\DoanhNghiep;
 use DB;
+use Illuminate\Support\Facades\Input;
+use PhpOffice\PHPExcel\PHPExcel;
 
 use App\Http\Requests;
 
@@ -133,14 +135,15 @@ class DoanhNghiepController extends Controller
 
     public function importExport()
     {
-        return view('importExport');
+        return view('doanhnghiep.importExcel');
     }
     
     public function importExcel()
         {
+
             if(Input::hasFile('import_file')){
                 $path = Input::file('import_file')->getRealPath();
-                $data = Excel::load($path, function($reader) {
+                $data = PHPExcel::load($path, function($reader) {
                 })->get();
                 if(!empty($data) && $data->count()){
                     foreach ($data as $key => $value) {
