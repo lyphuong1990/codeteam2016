@@ -8,7 +8,7 @@ use App\Models\User;
 use App\Models\DoanhNghiep;
 use DB;
 use Illuminate\Support\Facades\Input;
-use PhpOffice\PHPExcel\PHPExcel;
+use PhpOffice\PHPExcel\IOFactory;
 
 use App\Http\Requests;
 
@@ -143,7 +143,7 @@ class DoanhNghiepController extends Controller
 
             if(Input::hasFile('import_file')){
                 $path = Input::file('import_file')->getRealPath();
-                $data = PHPExcel::load($path, function($reader) {
+                $data = PHPExcel_IOFactory::load($path, function($reader) {
                 })->get();
                 if(!empty($data) && $data->count()){
                     foreach ($data as $key => $value) {
