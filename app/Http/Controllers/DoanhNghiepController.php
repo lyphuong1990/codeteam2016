@@ -8,7 +8,7 @@ use App\Models\User;
 use App\Models\DoanhNghiep;
 use DB;
 use Illuminate\Support\Facades\Input;
-use PhpOffice\PHPExcel\IOFactory;
+use Excel;
 
 use App\Http\Requests;
 
@@ -142,20 +142,23 @@ class DoanhNghiepController extends Controller
         {
 
             if(Input::hasFile('import_file')){
-                $path = Input::file('import_file')->getRealPath();
-                $data = PHPExcel_IOFactory::load($path, function($reader) {
-                })->get();
-                if(!empty($data) && $data->count()){
-                    foreach ($data as $key => $value) {
-                        $insert[] = ['title' => $value->title, 'description' => $value->description];
-                    }
-                    // if(!empty($insert)){
-                    //     DB::table('items')->insert($insert);
-                    //     dd('Insert Record successfully.');
-                    // }
+            $path = Input::file('import_file')->getRealPath();
+            $data = Excel::load($path, function($reader) {
+            })->get();
+            //dd($data);
+            if(!empty($data) && $data->count()){
+                foreach ($data as $key => $value) {
+                    //$insert[] = ['tin' => $value->tin, 'ten_dtnt' => $value->ten_dtnt];
+                    dd($value->pull('tin'));
                 }
+                dd($insert);
+                // if(!empty($insert)){
+                //     DB::table('items')->insert($insert);
+                //     dd('Insert Record successfully.');
+                // }
             }
-            return back();
         }
+        return back();
+    }
 
 }
