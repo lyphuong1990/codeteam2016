@@ -9,6 +9,7 @@ use App\Models\DoanhNghiep;
 use DB;
 use Illuminate\Support\Facades\Input;
 use Excel;
+use Illuminate\Contracts\Auth\RequestGuard;
 
 use App\Http\Requests;
 
@@ -129,8 +130,7 @@ class DoanhNghiepController extends Controller
     public function destroy($id)
     {
         DoanhNghiep::find($id)->delete();
-        return redirect()->route('doanhnghiep.index')
-                        ->with('success','DN deleted successfully');
+        return redirect()->route('doanhnghiep.index')->with('success','DN deleted successfully');
     }
 
     public function importExport()
@@ -140,22 +140,28 @@ class DoanhNghiepController extends Controller
     
     public function importExcel()
         {
-
+dd(Auth::user()->name);
             if(Input::hasFile('import_file')){
             $path = Input::file('import_file')->getRealPath();
             $data = Excel::load($path, function($reader) {
             })->get();
             //dd($data);
             if(!empty($data) && $data->count()){
-                foreach ($data as $key => $value) {
-                    //$insert[] = ['tin' => $value->tin, 'ten_dtnt' => $value->ten_dtnt];
-                    dd($value->pull('tin'));
+                foreach ($data as $key => $rowColl) {
+                    //dd($rowColl);
+                    foreach ($rowColl as $key => $cellColl) {
+                        
+                        if (!empty($cellColl->tin)) {
+                            $insert[] = ['mst' => $cellColl->tin, 'ten_dn' => $cellColl->ten_dtnt, 'dia_chi' => $cellColl->ten_tinh, 'dt_dn' => $cellColl->tel_nthue , 'email' => $cellColl->email, 'n_daidien' => $cellColl->ten_giamdoc, 'so_tien' => '0' , 'loai_goi' => 'GH',  'so_nam' => '3', 'user_id' => '1', 'user_name' => 'phuonglv', 'trang_thai' => '0'];
+                        }
+                            
+                    }
                 }
-                dd($insert);
-                // if(!empty($insert)){
-                //     DB::table('items')->insert($insert);
-                //     dd('Insert Record successfully.');
-                // }
+                //dd($insert);
+                 if(!empty($insert)){
+                     DB::table('doanh_nghieps')->insert($insert);
+                     dd('Insert Record successfully.');
+                 }
             }
         }
         return back();
