@@ -140,7 +140,6 @@ class DoanhNghiepController extends Controller
     
     public function importExcel()
         {
-
             if(Input::hasFile('import_file')){
             $path = Input::file('import_file')->getRealPath();
             $data = Excel::load($path, function($reader) {
@@ -152,7 +151,7 @@ class DoanhNghiepController extends Controller
                     foreach ($rowColl as $key => $cellColl) {
                         
                         if (!empty($cellColl->tin)) {
-                            $insert[] = ['mst' => $cellColl->tin, 'ten_dn' => $cellColl->ten_dtnt, 'dia_chi' => $cellColl->tran_addr .",". $cellColl->ten_tinh, 'ten_cq_thue' => $cellColl->ten_cq_thue, 'dt_dn' => $cellColl->tel_nthue , 'email' => $cellColl->email, 'n_daidien' => $cellColl->ten_giamdoc, 'so_tien' => '0' ,'ncc'=> $cellColl->ncc, 'loai_goi' => 'GH',  'so_nam' => '3', 'user_id' => '1', 'user_name' => 'phuonglv', 'trang_thai' => '0'];
+                            $insert[] = ['mst' => $cellColl->tin, 'ten_dn' => $cellColl->ten_dtnt, 'dia_chi' => $cellColl->tran_addr .",". $cellColl->ten_tinh, 'ten_cq_thue' => $cellColl->ten_cq_thue, 'dt_dn' => $cellColl->tel_nthue , 'email' => $cellColl->email, 'n_daidien' => $cellColl->ten_giamdoc, 'so_tien' => '0' ,'ncc'=> $cellColl->ncc, 'loai_goi' => 'GH',  'so_nam' => '3', 'user_id' => \Auth::user()->id, 'user_name' => \Auth::user()->name, 'trang_thai' => '0'];
                         }
                             
                     }
