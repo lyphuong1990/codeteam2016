@@ -21,7 +21,7 @@ class CloneTmpWController extends Controller
 		 	$templateProcessor = new \PhpOffice\PhpWord\templateProcessor(base_path(). '\common\FPT_GH3_0305210499_HD_PHUONGLV.docx');
 				// Variables on different parts of document
 				$templateProcessor->setValue('mst', $dn->mst);            // On section/content
-				$checked = '<w:checkBox><w:sizeAuto/><w:default w:val="0"/><w:checked/></w:checkBox>';
+				$checked = '<w:sym w:font="Wingdings" w:char="F078"/>';
 				$unChecked = '<w:sym w:font="Wingdings" w:char="F0A8"/>';
 				$templateProcessor->setValue('ten_dn', $dn->ten_dn);
 				$templateProcessor->setValue('dia_chi', $dn->dia_chi);
